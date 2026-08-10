@@ -37,11 +37,31 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
+
             'name' => config('app.name'),
+
             'auth' => [
                 'user' => $request->user(),
             ],
-            'sidebarOpen' => ! $request->hasCookie('sidebar_state') || $request->cookie('sidebar_state') === 'true',
+
+            'sidebarOpen' => ! $request->hasCookie('sidebar_state')
+                || $request->cookie('sidebar_state') === 'true',
+
+            'storefront' => [
+                'categories' => fn() => \App\Models\Category::query()
+                    ->where('is_active', true)
+                    ->whereNull('parent_id')
+                    ->orderBy('sort_order')
+                    ->get(['id', 'name', 'slug']),
+
+                'cartCount' => fn() => $request->user()
+                    ? \App\Models\Cart::where('customer_id', $request->user()->id)->count()
+                    : 0,
+
+                'wishlistCount' => fn() => $request->user()
+                    ? \App\Models\Wishlist::where('customer_id', $request->user()->id)->count()
+                    : 0,
+            ],
         ];
     }
 }

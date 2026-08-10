@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Head, Link } from '@inertiajs/vue3';
+import Header from '@/components/storefront/Header.vue'
+import Hero from '@/components/storefront/Hero.vue'
 
 defineProps<{
     featuredProducts: Array<any>;
@@ -12,21 +14,10 @@ defineProps<{
     <Head title="Shopora" />
 
     <div class="min-h-screen bg-slate-950 text-slate-100">
-        <header class="border-b border-white/10">
-            <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-5">
-                <div>
-                    <p class="text-2xl font-semibold">Shopora</p>
-                    <p class="text-sm text-slate-400">A focused storefront for a portfolio product.</p>
-                </div>
-                <nav class="flex items-center gap-4 text-sm">
-                    <Link href="/shop" class="text-slate-300 hover:text-white">Shop</Link>
-                    <Link href="/cart" class="text-slate-300 hover:text-white">Cart ({{ cartCount }})</Link>
-                    <Link href="/account" class="rounded-full border border-white/10 px-3 py-1.5 hover:border-white/30">Account</Link>
-                </nav>
-            </div>
-        </header>
+        <Header />
 
         <main class="mx-auto max-w-7xl px-6 py-16">
+            <Hero />
             <section class="grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
                 <div>
                     <p class="mb-4 inline-flex rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1 text-sm text-emerald-300">

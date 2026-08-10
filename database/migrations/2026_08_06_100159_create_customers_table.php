@@ -15,6 +15,11 @@ return new class extends Migration
 
             $table->id();
 
+            $table->foreignId('user_id')
+                ->nullable()
+                ->unique()
+                ->constrained()
+                ->cascadeOnDelete();
             $table->string('first_name', 100);
 
             $table->string('last_name', 100)->nullable();
